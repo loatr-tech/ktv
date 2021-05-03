@@ -1,0 +1,15 @@
+.remote-song-body {
+  display: flex;
+  margin-bottom: 10px;
+  .remote-song-image {
+    width: calc(100% - 70px);
+  }
+  .remote-song-actions {
+    width: 70px;
+    padding: 5px;
+    > button {
+      margin-bottom: 5px;
+      width: 100%;
+    }
+  }
+}

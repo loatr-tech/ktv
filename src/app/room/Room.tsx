@@ -32,7 +32,7 @@ function Room() {
   }
 
   const onPlayerStateChange = ({ data }: any) => {
-    if (data = 0) {
+    if (data === 0) {
       nextSong();
     }
   };

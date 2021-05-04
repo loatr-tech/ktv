@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import firebase from '../utils/firebase';
 import './remote-song.scss';
 
 function RemoteSong(props: any) {
+  const [isAdded, setIsAdded] = useState(false);
   const { video } = props;
   const { thumbnails } = video.thumbnail;
   const [{ text: videoTitle }] = video.title.runs;
@@ -13,7 +14,10 @@ function RemoteSong(props: any) {
       .collection('rooms')
       .doc('kcuRCauZPqfaoLCLcjDP')
       .collection('songs')
-      .add(video);
+      .add(video)
+      .then(() => {
+        setIsAdded(true);
+      })
   }
 
   return (
@@ -26,12 +30,17 @@ function RemoteSong(props: any) {
           alt={videoTitle}
         />
         <div className="remote-song-actions">
-          <button
-            className="btn btn-secondary"
-            onClick={() => onAddSong()}>
-            添加
-          </button>
-          <button className="btn btn-secondary">置顶</button>
+          {
+            isAdded ? <span>已添加</span> :
+            <>
+              <button
+                className="btn btn-secondary"
+                onClick={() => onAddSong()}>
+                添加
+              </button>
+              <button className="btn btn-secondary">置顶</button>
+            </>
+          }
         </div>
       </section>
     </div>

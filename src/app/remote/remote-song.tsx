@@ -7,7 +7,7 @@ function RemoteSong(props: any) {
   const [{ text: videoTitle }] = video.title.runs;
   return (
     <div className="remote-song">
-      <section>
+      <section className="remote-song-header">
         {videoTitle}
       </section>
       <section className="remote-song-body">

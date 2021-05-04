@@ -2,11 +2,12 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
 } from "react-router-dom";
 import './App.scss';
 import Room from './room/Room';
 import Remote from './remote/remote';
+import RemoteSearch from './remote/remote-search';
 
 function App() {
   return (
@@ -15,12 +16,9 @@ function App() {
         <Route exact path="/">
           Homepage of ktv
         </Route>
-        <Route path="/room">
-          <Room />
-        </Route>
-        <Route path="/remote">
-          <Remote />
-        </Route>
+        <Route path="/room" component={Room}/>
+        <Route path="/remote" exact component={Remote} />
+        <Route path="/remote/search" component={RemoteSearch} />
       </Switch>
     </Router>
   );

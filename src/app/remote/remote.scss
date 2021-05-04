@@ -1,0 +1,28 @@
+.remote-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .remote-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    padding: 15px;
+    > a {
+      min-width: 150px;
+      &:not(:last-of-type) {
+        margin-bottom: 12px;
+      }
+    }
+    border-bottom: 1px dashed darkgray;
+  }
+
+  .remote-actions {
+    padding: 15px;
+  }
+}

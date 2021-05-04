@@ -1,0 +1,16 @@
+.remote-search-header {
+  border-bottom: 1px solid darkgray;
+  padding: 10px 8px;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.remote-search-box {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}

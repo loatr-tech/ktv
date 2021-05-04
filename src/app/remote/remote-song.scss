@@ -1,6 +1,18 @@
+.remote-song {
+  margin-bottom: 10px;
+}
+
+.remote-song-header {
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+
 .remote-song-body {
   display: flex;
-  margin-bottom: 10px;
   .remote-song-image {
     width: calc(100% - 70px);
   }

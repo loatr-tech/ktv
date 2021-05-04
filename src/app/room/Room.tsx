@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import firebase from '../utils/firebase';
-import './Room.scss';
+import { RoomContext } from '../_context/room.context';
+import './room.scss';
 declare var window: any;
 
-const removeFirstSong = (songs: any[]) => {
-  if (songs.length) {
+const removeFirstSong = (songList: any[]) => {
+  if (songList.length) {
     firebase
       .firestore()
       .collection('rooms')
       .doc('kcuRCauZPqfaoLCLcjDP')
       .collection('songs')
-      .doc(songs[0].id)
+      .doc(songList[0].id)
       .delete()
       .then(() => {
         console.log('song removed!');
@@ -19,8 +20,8 @@ const removeFirstSong = (songs: any[]) => {
 }
 
 function Room() {
+  const { songs } = useContext(RoomContext);
   const [ytPlayer, setYtPlayer] = useState<any>();
-  const [activeSongs, setActiveSongs] = useState<any[]>([]);
   const [currentSong, setCurrentSong] = useState<any>();
   const [songState, setSongState] = useState();
   const [firstSongStarted, setFirstSongStarted] = useState(false);
@@ -30,23 +31,23 @@ function Room() {
   }
 
   const nextSong = () => {
-    if (activeSongs.length) {
-      if (activeSongs.length > 1) {
-        ytPlayer.loadVideoById(activeSongs[1].videoId);
+    if (songs.length) {
+      if (songs.length > 1) {
+        ytPlayer.loadVideoById(songs[1].videoId);
       } else {
         ytPlayer.loadVideoById('BHACKCNDMW8');
         setFirstSongStarted(false);
       }
-      removeFirstSong(activeSongs);
+      removeFirstSong(songs);
     }
   }
 
   useEffect(() => {
     // Go to next song if current song/video ended
     if (songState === 0) {
-      removeFirstSong(activeSongs);
+      removeFirstSong(songs);
     }
-  }, [songState, activeSongs]);
+  }, [songState, songs]);
 
   useEffect(() => {
     // Load Youtube iframe API
@@ -74,35 +75,24 @@ function Room() {
   }, []);
 
   useEffect(() => {
-    const unsubscribeFirebase = firebase
-      .firestore()
-      .collection('rooms')
-      .doc('kcuRCauZPqfaoLCLcjDP')
-      .collection('songs')
-      .onSnapshot((snapshot) => {
-        const newActiveSongs = snapshot.docs.map((video: any) => {
-          return {
-            id: video.id,
-            ...video.data(),
-          };
-        });
-
-        setActiveSongs(newActiveSongs);
-      });
-
-    return () => unsubscribeFirebase();
-  }, []);
-
-  useEffect(() => {
-    if (!!ytPlayer && activeSongs.length) {
-      const firstNewSong = activeSongs[0];
+    if (!!ytPlayer && songs.length) {
+      const firstNewSong = songs[0];
       if (currentSong?.videoId !== firstNewSong.videoId) {
         ytPlayer.loadVideoById(firstNewSong.videoId);
+        if (songs.length > 1) {
+          firebase
+            .firestore()
+            .collection('rooms')
+            .doc('kcuRCauZPqfaoLCLcjDP')
+            .collection('songs')
+            .doc(firstNewSong.id)
+            .update({ position: firstNewSong.position - 1000 });
+        }
         setCurrentSong(firstNewSong);
         setFirstSongStarted(true);
       }
     }
-  }, [ytPlayer, activeSongs, firstSongStarted, currentSong]);
+  }, [ytPlayer, songs, firstSongStarted, currentSong]);
 
   return (
     <div className="room-container">

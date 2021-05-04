@@ -26,17 +26,6 @@ function Room() {
     }
   }
 
-  const onPlayerReady = (e: any) => {
-    setYtPlayer(e.target);
-    e.target.playVideo();
-  }
-
-  const onPlayerStateChange = ({ data }: any) => {
-    if (data === 0) {
-      nextSong();
-    }
-  };
-
   useEffect(() => {
     // Load Youtube iframe API
     const tag = document.createElement('script');
@@ -50,8 +39,15 @@ function Room() {
       new window['YT'].Player('ktv-youtube-iframe', {
         videoId: 'BHACKCNDMW8',
         events: {
-          onReady: onPlayerReady,
-          onStateChange: onPlayerStateChange,
+          onReady: (e: any) => {
+            setYtPlayer(e.target);
+            e.target.playVideo();
+          },
+          onStateChange: ({ data }: any) => {
+            if (data === 0) {
+              nextSong();
+            }
+          },
         },
       });
     };

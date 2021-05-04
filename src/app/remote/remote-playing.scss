@@ -1,4 +1,4 @@
-.remote-search-header {
+.remote-playing-header {
   border-bottom: 1px solid darkgray;
   padding: 10px 8px;
   display: flex;
@@ -10,8 +10,13 @@
   z-index: 1;
 }
 
-.remote-search-box {
-  padding: 10px 0;
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
+.remote-playing-table {
+  tr > th, td{
+    &:first-of-type {
+      width: 50px;
+    }
+    &:last-of-type {
+      width: 100px;
+    }
+  }
 }

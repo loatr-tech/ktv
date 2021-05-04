@@ -23,31 +23,29 @@ function Room() {
   const { songs } = useContext(RoomContext);
   const [ytPlayer, setYtPlayer] = useState<any>();
   const [currentSong, setCurrentSong] = useState<any>();
-  const [songState, setSongState] = useState();
-  const [firstSongStarted, setFirstSongStarted] = useState(false);
+  const [songState, setSongState] = useState<number>();
 
   const playVideo = () => {
     ytPlayer.playVideo();
   }
 
   const nextSong = () => {
-    if (songs.length) {
-      if (songs.length > 1) {
-        ytPlayer.loadVideoById(songs[1].videoId);
-      } else {
-        ytPlayer.loadVideoById('BHACKCNDMW8');
-        setFirstSongStarted(false);
-      }
-      removeFirstSong(songs);
-    }
+    // set song to end
+    setSongState(0);
   }
 
   useEffect(() => {
     // Go to next song if current song/video ended
-    if (songState === 0) {
+    if (songState === 0 && ytPlayer) {
+      if (songs.length > 1) {
+        ytPlayer.loadVideoById(songs[1].videoId);
+      } else {
+        ytPlayer.loadVideoById('BHACKCNDMW8');
+      }
       removeFirstSong(songs);
+      setSongState(1);
     }
-  }, [songState, songs]);
+  }, [songState, songs, ytPlayer]);
 
   useEffect(() => {
     // Load Youtube iframe API
@@ -89,10 +87,9 @@ function Room() {
             .update({ position: firstNewSong.position - 1000 });
         }
         setCurrentSong(firstNewSong);
-        setFirstSongStarted(true);
       }
     }
-  }, [ytPlayer, songs, firstSongStarted, currentSong]);
+  }, [ytPlayer, songs, currentSong]);
 
   return (
     <div className="room-container">

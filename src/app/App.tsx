@@ -5,6 +5,7 @@ import Room from './room/room';
 import Remote from './remote/remote';
 import RemoteSearch from './remote/remote-search';
 import RoomContextProvider from './_context/room.context';
+import RemotePlaying from './remote/remote-playing';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/room" component={Room} />
           <Route path="/remote" exact component={Remote} />
           <Route path="/remote/search" component={RemoteSearch} />
+          <Route path="/remote/playing" component={RemotePlaying} />
         </Switch>
       </HashRouter>
     </RoomContextProvider>

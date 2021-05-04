@@ -9,7 +9,7 @@ import { RoomContext } from '../_context/room.context';
 function RemoteSearch() {
   const { songs } = useContext(RoomContext);
   const [query, setQuery] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<any[]>(MOCK_SEARCH_RESULT);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const onSearch = useCallback(async () => {
     if (query) {
       const { data } = await axios.get(`http://localhost:8080/ktv/search`, {
@@ -25,7 +25,7 @@ function RemoteSearch() {
         <Link to="/remote" className="btn btn-light">
           返回
         </Link>
-        <Link to="/playing" className="btn btn-primary">
+        <Link to="/remote/playing" className="btn btn-primary">
           正在播放 <span className="badge">{songs.length}</span>
         </Link>
       </header>

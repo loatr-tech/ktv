@@ -1,20 +1,35 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import firebase from '../utils/firebase';
 import './Room.scss';
 declare var window: any;
 
 function Room() {
   const [ytPlayer, setYtPlayer] = useState<any>();
+  const [activeSongs, setActiveSongs] = useState<any[]>([]);
 
   const playVideo = () => {
     ytPlayer.playVideo();
   }
 
   const nextSong = () => {
-    ytPlayer.loadVideoById('rSgbYCdc4G0');
+    if (activeSongs.length) {
+      console.log(activeSongs[0].videoId);
+      firebase
+        .firestore()
+        .collection('rooms')
+        .doc('kcuRCauZPqfaoLCLcjDP')
+        .collection('songs')
+        .doc(activeSongs[0].id)
+        .delete()
+        .then(() => {
+          console.log('deleted!');
+        })
+    }
   }
 
   const onPlayerReady = (e: any) => {
     setYtPlayer(e.target);
+    e.target.playVideo();
   }
 
   const onPlayerStateChange = (e: any) => {
@@ -22,6 +37,7 @@ function Room() {
   };
 
   useEffect(() => {
+    // Load Youtube iframe API
     const tag = document.createElement('script');
     tag.id = 'youtube-iframe-api';
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -31,14 +47,36 @@ function Room() {
 
     window['onYouTubeIframeAPIReady'] = (e: any) => {
       new window['YT'].Player('ktv-youtube-iframe', {
-        videoId: '1cH2cerUpMQ',
+        videoId: 'BHACKCNDMW8',
         events: {
           onReady: onPlayerReady,
           onStateChange: onPlayerStateChange,
         },
       });
     };
+
+    const subsub = firebase
+      .firestore()
+      .collection('rooms')
+      .doc('kcuRCauZPqfaoLCLcjDP')
+      .collection('songs')
+      .onSnapshot(snapshot => {
+        const currentSongs = snapshot.docs.map((video: any) => {
+          return {
+            id: video.id,
+            ...video.data(),
+          };
+        });
+        setActiveSongs(currentSongs);
+      });
+    return () => subsub();
   }, [])
+
+  useEffect(() => {
+    if (ytPlayer && activeSongs.length) {
+      ytPlayer.loadVideoById(activeSongs[0].videoId);
+    }
+  }, [activeSongs, ytPlayer]);
 
   return (
     <div className="room-container">

@@ -41,7 +41,7 @@ function RemoteSearch() {
       </div>
 
       <section>
-        {searchResults.map(video => <RemoteSong video={video}/>)}
+        {searchResults.map(video => <RemoteSong video={video} key={video.videoId}/>)}
       </section>
     </div>
   </>

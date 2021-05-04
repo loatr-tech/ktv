@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './remote-search.scss';
 import axios from 'axios';
 import { MOCK_SEARCH_RESULT } from './mock-data';

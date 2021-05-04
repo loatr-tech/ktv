@@ -1,8 +1,6 @@
-import React, { useCallback, useState } from 'react';
-import { Route, Link } from "react-router-dom";
+import React from 'react';
+import { Link } from "react-router-dom";
 import './remote.scss';
-import axios from 'axios';
-import { MOCK_SEARCH_RESULT } from './mock-data';
 
 function Remote() {
   return (

@@ -1,0 +1,31 @@
+.room-container {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+.room-iframe-wrapper {
+  width: 100vw;
+  max-width: calc(100vw - 100px);
+  max-height: calc(100vh - 80px);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .room-iframe-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+
+    .room-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

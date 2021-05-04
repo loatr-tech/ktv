@@ -13,7 +13,6 @@ function Room() {
 
   const nextSong = () => {
     if (activeSongs.length) {
-      console.log(activeSongs[0].videoId);
       firebase
         .firestore()
         .collection('rooms')
@@ -32,8 +31,10 @@ function Room() {
     e.target.playVideo();
   }
 
-  const onPlayerStateChange = (e: any) => {
-    console.log('onPlayerStateChange', e);
+  const onPlayerStateChange = ({ data }: any) => {
+    if (data = 0) {
+      nextSong();
+    }
   };
 
   useEffect(() => {
@@ -75,6 +76,8 @@ function Room() {
   useEffect(() => {
     if (ytPlayer && activeSongs.length) {
       ytPlayer.loadVideoById(activeSongs[0].videoId);
+    } else if (ytPlayer) {
+      ytPlayer.loadVideoById('BHACKCNDMW8');
     }
   }, [activeSongs, ytPlayer]);
 

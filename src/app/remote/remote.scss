@@ -1,6 +1,5 @@
 .remote-container {
-  width: 100vw;
-  height: 100vh;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,5 +23,8 @@
 
   .remote-actions {
     padding: 15px;
+    button + button {
+      margin-left: 10px;
+    }
   }
 }

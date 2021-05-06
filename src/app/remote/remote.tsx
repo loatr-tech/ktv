@@ -22,17 +22,25 @@ function Remote() {
           正在播放 <span className="badge">{songs.length}</span>
         </Link>
         <Link to="/remote/search" className="btn btn-lg btn-warning">
-          点歌
+          <i className="bi bi-music-note"></i> 点歌
         </Link>
       </section>
 
       <section className="remote-actions">
         <button
-          className={`btn btn-lg btn-${songs.length < 2 ? 'outline-':''}secondary`}
+          className={`btn btn-lg btn-${
+            songs.length < 2 ? 'outline-' : ''
+          }secondary`}
           disabled={songs.length < 2 || btnDebounce}
           onClick={() => skipSong()}
         >
-          切歌
+          <i className="bi bi-skip-forward"></i> 切歌
+        </button>
+        <button className="btn btn-lg btn-secondary" disabled={btnDebounce}>
+          <i className="bi bi-play"></i>
+        </button>
+        <button className="btn btn-lg btn-secondary" disabled={btnDebounce}>
+          <i className="bi bi-pause"></i>
         </button>
       </section>
     </div>

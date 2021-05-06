@@ -1,20 +1,13 @@
 import React, { useContext } from 'react';
-import firebase from '../utils/firebase';
 import { Link } from 'react-router-dom';
 import { RoomContext } from '../_context/room.context';
 import './remote-playing.scss';
 
 function RemotePlaying() {
-  const { songs } = useContext(RoomContext);
+  const { songs, updateSongProps } = useContext(RoomContext);
 
   const onMoveToTheTop = (song: any) => {
-    firebase
-      .firestore()
-      .collection('rooms')
-      .doc('kcuRCauZPqfaoLCLcjDP')
-      .collection('songs')
-      .doc(song.id)
-      .update({ position: songs[1].position - 1 });
+    updateSongProps(song.id, { position: songs[1].position - 1 });
   }
 
   return (

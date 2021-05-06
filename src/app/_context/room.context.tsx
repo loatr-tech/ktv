@@ -5,14 +5,14 @@ export const RoomContext = createContext<any>({});
 
 export default function RoomContextProvider(props: any) {
   const [room, setRoom] = useState();
-  const [roomId, setRoomId] = useState();
+  const [roomId, setRoomId] = useState('kcuRCauZPqfaoLCLcjDP');
   const [songs, setSongs] = useState<any[]>([]);
 
   useEffect(() => {
     const unsubscribeFirebase = firebase
       .firestore()
       .collection('rooms')
-      .doc('kcuRCauZPqfaoLCLcjDP')
+      .doc(roomId)
       .collection('songs')
       .orderBy('position', 'asc')
       .onSnapshot((snapshot) => {
@@ -27,7 +27,38 @@ export default function RoomContextProvider(props: any) {
       });
 
     return () => unsubscribeFirebase();
-  }, []);
+  }, [roomId]);
+
+  const updateSongProps = (songId: string, songProps: any) => {
+    return firebase
+      .firestore()
+      .collection('rooms')
+      .doc(roomId)
+      .collection('songs')
+      .doc(songId)
+      .update(songProps);
+  }
+
+  const addSong = (video: any) => {
+    return firebase
+      .firestore()
+      .collection('rooms')
+      .doc(roomId)
+      .collection('songs')
+      .add(video);
+  }
+
+  const removeFirstSong = () => {
+    if (songs.length) {
+      return firebase
+        .firestore()
+        .collection('rooms')
+        .doc(roomId)
+        .collection('songs')
+        .doc(songs[0].id)
+        .delete();
+    }
+  };
 
   return (
     <RoomContext.Provider
@@ -37,6 +68,9 @@ export default function RoomContextProvider(props: any) {
         roomId,
         setRoomId,
         songs,
+        updateSongProps,
+        addSong,
+        removeFirstSong,
       }}
     >
       {props.children}

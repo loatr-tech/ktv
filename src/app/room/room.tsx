@@ -1,26 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import firebase from '../utils/firebase';
 import { RoomContext } from '../_context/room.context';
 import './room.scss';
 declare var window: any;
 
-const removeFirstSong = (songList: any[]) => {
-  if (songList.length) {
-    firebase
-      .firestore()
-      .collection('rooms')
-      .doc('kcuRCauZPqfaoLCLcjDP')
-      .collection('songs')
-      .doc(songList[0].id)
-      .delete()
-      .then(() => {
-        console.log('song removed!');
-      });
-  }
-}
-
 function Room() {
-  const { songs } = useContext(RoomContext);
+  const { songs, updateSongProps, removeFirstSong } = useContext(RoomContext);
   const [ytPlayer, setYtPlayer] = useState<any>();
   const [currentSong, setCurrentSong] = useState<any>();
   const [songState, setSongState] = useState<number>();
@@ -42,10 +26,12 @@ function Room() {
       } else {
         ytPlayer.loadVideoById('BHACKCNDMW8');
       }
-      removeFirstSong(songs);
+      if (songs.length) {
+        removeFirstSong();
+      }
       setSongState(1);
     }
-  }, [songState, songs, ytPlayer]);
+  }, [songState, songs, ytPlayer, removeFirstSong]);
 
   useEffect(() => {
     // Load Youtube iframe API
@@ -78,18 +64,14 @@ function Room() {
       if (currentSong?.videoId !== firstNewSong.videoId) {
         ytPlayer.loadVideoById(firstNewSong.videoId);
         if (songs.length > 1) {
-          firebase
-            .firestore()
-            .collection('rooms')
-            .doc('kcuRCauZPqfaoLCLcjDP')
-            .collection('songs')
-            .doc(firstNewSong.id)
-            .update({ position: firstNewSong.position - 1000 });
+          updateSongProps(firstNewSong.id, {
+            position: firstNewSong.position - 1000,
+          });
         }
         setCurrentSong(firstNewSong);
       }
     }
-  }, [ytPlayer, songs, currentSong]);
+  }, [ytPlayer, songs, currentSong, updateSongProps]);
 
   return (
     <div className="room-container">

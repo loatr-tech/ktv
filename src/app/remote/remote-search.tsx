@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import './remote-search.scss';
 import axios from 'axios';
-import { MOCK_SEARCH_RESULT } from './mock-data';
 import RemoteSong from './remote-song';
 import { RoomContext } from '../_context/room.context';
 
@@ -12,7 +11,7 @@ function RemoteSearch() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const onSearch = useCallback(async () => {
     if (query) {
-      const { data } = await axios.get(`http://localhost:8080/ktv/search`, {
+      const { data } = await axios.get(`http://api.loatr.tech/ktv/search`, {
         params: { query }
       });
       setSearchResults(data);

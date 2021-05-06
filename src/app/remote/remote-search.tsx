@@ -12,7 +12,11 @@ function RemoteSearch() {
   const onSearch = useCallback(async () => {
     if (query) {
       const { data } = await axios.get(`http://api.loatr.tech/ktv/search`, {
-        params: { query }
+        params: { query },
+        headers: {
+          'Access-Control-Allow-Origin': 'http://api.loatr.tech',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        },
       });
       setSearchResults(data);
     }

@@ -11,13 +11,12 @@ function RemoteSearch() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const onSearch = useCallback(async () => {
     if (query) {
-      const { data } = await axios.get(`http://api.loatr.tech/ktv/search`, {
-        params: { query },
-        headers: {
-          'Access-Control-Allow-Origin': 'http://api.loatr.tech',
-          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-        },
-      });
+      const { data } = await axios.get(
+        `https://loatr-tech-api.herokuapp.com/ktv/search`,
+        {
+          params: { query },
+        }
+      );
       setSearchResults(data);
     }
   }, [query]);

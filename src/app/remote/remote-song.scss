@@ -15,6 +15,10 @@
   display: flex;
   .remote-song-image {
     width: calc(100% - 70px);
+    > img {
+      width: 100%;
+      height: auto;
+    }
   }
   .remote-song-actions {
     width: 70px;

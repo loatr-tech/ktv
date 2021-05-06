@@ -51,19 +51,18 @@ function RemoteSong(props: any) {
     <div className="remote-song">
       <section className="remote-song-header">{videoTitle}</section>
       <section className="remote-song-body">
-        <img
-          className="remote-song-image"
-          src={thumbnails[thumbnails.length - 1].url}
-          alt={videoTitle}
-        />
+        <div className="remote-song-image">
+          <img
+            src={thumbnails[thumbnails.length - 1].url}
+            alt={videoTitle}
+          />
+        </div>
         <div className="remote-song-actions">
-          {
-            isAdded ? <span>已添加</span> :
+          {isAdded ? (
+            <span>已添加</span>
+          ) : (
             <>
-              <button
-                className="btn btn-secondary"
-                onClick={() => onAddSong()}
-              >
+              <button className="btn btn-secondary" onClick={() => onAddSong()}>
                 添加
               </button>
               <button
@@ -73,7 +72,7 @@ function RemoteSong(props: any) {
                 置顶
               </button>
             </>
-          }
+          )}
         </div>
       </section>
     </div>

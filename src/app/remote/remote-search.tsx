@@ -9,7 +9,9 @@ function RemoteSearch() {
   const { songs } = useContext(RoomContext);
   const [query, setQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const onSearch = useCallback(async () => {
+
+  const onSearch = useCallback(async (e: any) => {
+    e.preventDefault();
     if (query) {
       const { data } = await axios.get(
         `https://loatr-tech-api.herokuapp.com/ktv/search`,
@@ -31,7 +33,7 @@ function RemoteSearch() {
           正在播放 <span className="badge">{songs.length}</span>
         </Link>
       </header>
-      <div className="container">
+      <form className="container" onSubmit={onSearch}>
         <div className="input-group remote-search-box">
           <input
             type="text"
@@ -41,7 +43,8 @@ function RemoteSearch() {
             onChange={(event: any) => setQuery(event.target.value)}
           />
           <button
-            className="btn btn-outline-success"
+            className="btn btn-outline-secondary"
+            id="remote-search-input"
             type="button"
             onClick={onSearch}
           >
@@ -54,7 +57,7 @@ function RemoteSearch() {
             <RemoteSong video={video} key={video.videoId} />
           ))}
         </section>
-      </div>
+      </form>
     </>
   );
 }

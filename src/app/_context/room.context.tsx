@@ -3,6 +3,13 @@ import firebase from '../utils/firebase';
 
 export const RoomContext = createContext<any>({});
 
+function getRoomCollectionRefernce(roomId: string) {
+  return firebase
+    .firestore()
+    .collection('rooms')
+    .doc(roomId)
+}
+
 export default function RoomContextProvider(props: any) {
   const [room, setRoom] = useState();
   const [roomId, setRoomId] = useState('kcuRCauZPqfaoLCLcjDP');
@@ -28,6 +35,22 @@ export default function RoomContextProvider(props: any) {
 
     return () => unsubscribeFirebase();
   }, [roomId]);
+
+  const playPauseSong = (play: boolean) => {
+    return firebase
+      .firestore()
+      .collection('rooms')
+      .doc(roomId)
+      .update({ play })
+  }
+
+  const onRoomChange = (callback = () => {}) => {
+    return firebase
+      .firestore()
+      .collection('rooms')
+      .doc(roomId)
+      .onSnapshot(callback);
+  }
 
   const updateSongProps = (songId: string, songProps: any) => {
     return firebase
@@ -67,7 +90,9 @@ export default function RoomContextProvider(props: any) {
         setRoom,
         roomId,
         setRoomId,
+        onRoomChange,
         songs,
+        playPauseSong,
         updateSongProps,
         addSong,
         removeFirstSong,

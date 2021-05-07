@@ -4,15 +4,19 @@ import { RoomContext } from '../_context/room.context';
 import './remote.scss';
 
 function Remote() {
-  const { songs, removeFirstSong } = useContext(RoomContext);
+  const { songs, playPauseSong, removeFirstSong } = useContext(RoomContext);
   const [btnDebounce, setBtnDebounce] = useState<boolean>(false);
+
+  const onPlayPauseSong = async (play: boolean) => {
+    setBtnDebounce(true);
+    await playPauseSong(play);
+    setTimeout(() => setBtnDebounce(false), 300);
+  }
 
   const skipSong = async () => {
     setBtnDebounce(true);
     await removeFirstSong();
-    setTimeout(() => {
-      setBtnDebounce(false);
-    }, 300);
+    setTimeout(() => setBtnDebounce(false), 300);
   }
 
   return (
@@ -36,10 +40,18 @@ function Remote() {
         >
           <i className="bi bi-skip-forward"></i> 切歌
         </button>
-        <button className="btn btn-lg btn-secondary" disabled={btnDebounce}>
+        <button
+          className="btn btn-lg btn-secondary"
+          onClick={() => onPlayPauseSong(true)}
+          disabled={btnDebounce}
+        >
           <i className="bi bi-play"></i>
         </button>
-        <button className="btn btn-lg btn-secondary" disabled={btnDebounce}>
+        <button
+          className="btn btn-lg btn-secondary"
+          onClick={() => onPlayPauseSong(false)}
+          disabled={btnDebounce}
+        >
           <i className="bi bi-pause"></i>
         </button>
       </section>

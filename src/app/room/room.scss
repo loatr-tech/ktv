@@ -5,6 +5,7 @@
 }
 .room-iframe-wrapper {
   width: 100vw;
+  height: 100vh;
   max-width: calc(100vw - 100px);
   max-height: calc(100vh - 80px);
   position: fixed;
@@ -27,6 +28,26 @@
       right: 0;
       width: 100%;
       height: 100%;
+
+      .ytp-show-cards-title {
+        display: none;
+      }
     }
+  }
+}
+.room-actions {
+  position: fixed;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  opacity: 0.2;
+  &:hover {
+    opacity: 0.8;
+  }
+  > button {
+    width: 36px;
+    margin-bottom: 8px;
   }
 }

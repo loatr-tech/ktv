@@ -2,16 +2,13 @@
   background-color: black;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .room-iframe-wrapper {
-  width: 100vw;
-  height: 100vh;
-  max-width: calc(100vw - 100px);
-  max-height: calc(100vh - 80px);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  max-width: calc(100vh / 9 * 16);
+  flex: 1;
   .room-iframe-container {
     position: relative;
     overflow: hidden;

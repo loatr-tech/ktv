@@ -1,0 +1,37 @@
+@keyframes scrolling-banner {
+  from {
+    left: 100vw;
+  }
+  to {
+    left: -100vw;
+  }
+}
+
+.room-banner-container {
+  height: 40px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  position: fixed;
+  z-index: 1;
+}
+.room-banner-container {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.room-banner {
+  color: white;
+  padding: 8px 10px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  animation: scrolling-banner 30s infinite linear;
+  > span {
+    max-width: 500px;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { RoomContext } from '../_context/room.context';
+import RoomBanner from './room-banner';
 import './room.scss';
 declare var window: any;
 
@@ -98,6 +99,7 @@ function Room() {
 
   return (
     <div className="room-container">
+      <RoomBanner />
       <section className="room-iframe-wrapper">
         <div className="room-iframe-container">
           <div

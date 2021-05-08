@@ -63,10 +63,7 @@ export default function RoomContextProvider(props: any) {
   }
 
   const addSong = (video: any) => {
-    return firebase
-      .firestore()
-      .collection('rooms')
-      .doc(roomId)
+    return getRoomCollectionRefernce(roomId)
       .collection('songs')
       .add(video);
   }

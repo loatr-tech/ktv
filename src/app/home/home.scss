@@ -1,0 +1,22 @@
+.home-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  display: flex;
+  flex-direction: column;
+
+  >.home-created-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+
+  > img {
+    width: 70px;
+    margin: 20px;
+  }
+}

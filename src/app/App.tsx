@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
+import Home from './home/home';
 import Room from './room/room';
 import Remote from './remote/remote';
 import RemoteSearch from './remote/remote-search';
@@ -13,7 +14,7 @@ function App() {
       <HashRouter>
         <Switch>
           <Route exact path="/">
-            Homepage of ktv
+            <Home />
           </Route>
           <Route path="/room" component={Room} />
           <Route path="/remote" exact component={Remote} />

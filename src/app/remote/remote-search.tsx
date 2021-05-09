@@ -9,19 +9,25 @@ function RemoteSearch() {
   const { songs, roomId } = useContext(RoomContext);
   const [query, setQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  const onSearch = useCallback(async (e: any) => {
-    e.preventDefault();
-    if (query) {
-      const { data } = await axios.get(
-        `https://loatr-tech-api.herokuapp.com/ktv/search`,
-        {
-          params: { query },
-        }
-      );
-      setSearchResults(data);
-    }
-  }, [query]);
+  const onSearch = useCallback(
+    async (e: any) => {
+      e.preventDefault();
+      if (query) {
+        setIsSearching(true);
+        const { data } = await axios.get(
+          `https://loatr-tech-api.herokuapp.com/ktv/search`,
+          {
+            params: { query },
+          }
+        );
+        setIsSearching(false);
+        setSearchResults(data);
+      }
+    },
+    [query]
+  );
 
   return (
     <>
@@ -47,17 +53,24 @@ function RemoteSearch() {
             id="remote-search-input"
             type="button"
             onClick={onSearch}
+            disabled={isSearching}
           >
             Search
           </button>
         </div>
-
-        <section>
-          {searchResults.map((video) => (
-            <RemoteSong video={video} key={video.videoId} />
-          ))}
-        </section>
       </form>
+
+      <section className="container">
+        {isSearching ? (
+          <div className="text-center my-3">
+            <div className="spinner-border text-info" role="status"></div>
+          </div>
+        ) : (
+          searchResults.map((video) => (
+            <RemoteSong video={video} key={video.videoId} />
+          ))
+        )}
+      </section>
     </>
   );
 }

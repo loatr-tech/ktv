@@ -51,17 +51,15 @@ function Home() {
         </>
       ) : (
         <>
-          <h4>Welcome to Youtube Karaoke</h4>
+          <h4>Youtube Karaoke</h4>
           <img src="karaoke-icon.png" alt="karaoke icon" />
-          <div>
-            <button
-              className="btn btn-primary mr-2"
-              onClick={() => onCreateRoom()}
-            >
-              Create a room
-            </button>
-            <button className="btn btn-primary">Join a room</button>
-          </div>
+          <button
+            className="btn btn-primary mb-2"
+            onClick={() => onCreateRoom()}
+          >
+            Create a room
+          </button>
+          <button className="btn btn-primary">Join a room</button>
         </>
       )}
     </div>

@@ -16,10 +16,10 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/room" component={Room} />
-          <Route path="/remote" exact component={Remote} />
-          <Route path="/remote/search" component={RemoteSearch} />
-          <Route path="/remote/playing" component={RemotePlaying} />
+          <Route path="/room/:roomId" component={Room} />
+          <Route path="/remote/:roomId" exact component={Remote} />
+          <Route path="/remote/:roomId/search" component={RemoteSearch} />
+          <Route path="/remote/:roomId/playing" component={RemotePlaying} />
         </Switch>
       </HashRouter>
     </RoomContextProvider>

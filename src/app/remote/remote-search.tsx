@@ -6,7 +6,7 @@ import RemoteSong from './remote-song';
 import { RoomContext } from '../_context/room.context';
 
 function RemoteSearch() {
-  const { songs } = useContext(RoomContext);
+  const { songs, roomId } = useContext(RoomContext);
   const [query, setQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
 
@@ -26,10 +26,10 @@ function RemoteSearch() {
   return (
     <>
       <header className="remote-search-header">
-        <Link to="/remote" className="btn btn-light">
+        <Link to={`/remote/${roomId}`} className="btn btn-light">
           返回
         </Link>
-        <Link to="/remote/playing" className="btn btn-primary">
+        <Link to={`/remote/${roomId}/playing`} className="btn btn-primary">
           正在播放 <span className="badge">{songs.length}</span>
         </Link>
       </header>

@@ -11,8 +11,7 @@ function getRoomCollectionRefernce(roomId: string) {
 }
 
 export default function RoomContextProvider(props: any) {
-  const [room, setRoom] = useState();
-  const [roomId, setRoomId] = useState('kcuRCauZPqfaoLCLcjDP');
+  const [roomId, setRoomId] = useState('0EqUdVjYeqA8aAvAv3W5');
   const [songs, setSongs] = useState<any[]>([]);
 
   useEffect(() => {
@@ -35,6 +34,16 @@ export default function RoomContextProvider(props: any) {
 
     return () => unsubscribeFirebase();
   }, [roomId]);
+
+  const createRoom = async () => {
+    return firebase
+      .firestore()
+      .collection('rooms')
+      .add({ play: true })
+      .then(room => {
+        setRoomId(room.id);
+      });
+  }
 
   const playPauseSong = (play: boolean) => {
     return firebase
@@ -83,10 +92,8 @@ export default function RoomContextProvider(props: any) {
   return (
     <RoomContext.Provider
       value={{
-        room,
-        setRoom,
         roomId,
-        setRoomId,
+        createRoom,
         onRoomChange,
         songs,
         playPauseSong,

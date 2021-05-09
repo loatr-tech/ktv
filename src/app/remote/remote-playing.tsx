@@ -4,7 +4,7 @@ import { RoomContext } from '../_context/room.context';
 import './remote-playing.scss';
 
 function RemotePlaying() {
-  const { songs, updateSongProps } = useContext(RoomContext);
+  const { songs, updateSongProps, roomId } = useContext(RoomContext);
 
   const onMoveToTheTop = (song: any) => {
     updateSongProps(song.id, { position: songs[1].position - 1 });
@@ -13,7 +13,7 @@ function RemotePlaying() {
   return (
     <>
       <header className="remote-playing-header">
-        <Link to="/remote" className="btn btn-light">
+        <Link to={`/remote/${roomId}`} className="btn btn-light">
           返回
         </Link>
         <span>播放列表</span>

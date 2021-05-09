@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { RoomContext } from '../_context/room.context';
 import './remote.scss';
 
-function Remote() {
-  const { songs, playPauseSong, removeFirstSong } = useContext(RoomContext);
+function Remote({ match }: any) {
+  const { songs, playPauseSong, removeFirstSong, roomId } = useContext(
+    RoomContext
+  );
   const [btnDebounce, setBtnDebounce] = useState<boolean>(false);
 
   const onPlayPauseSong = async (play: boolean) => {
@@ -22,10 +24,16 @@ function Remote() {
   return (
     <div className="remote-container">
       <section className="remote-links">
-        <Link to="/remote/playing" className="btn btn-lg btn-primary">
+        <Link
+          to={`/remote/${roomId}/playing`}
+          className="btn btn-lg btn-primary"
+        >
           正在播放 <span className="badge">{songs.length}</span>
         </Link>
-        <Link to="/remote/search" className="btn btn-lg btn-warning">
+        <Link
+          to={`/remote/${roomId}/search`}
+          className="btn btn-lg btn-warning"
+        >
           <i className="bi bi-music-note"></i> 点歌
         </Link>
       </section>

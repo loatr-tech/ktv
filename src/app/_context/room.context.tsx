@@ -93,6 +93,7 @@ export default function RoomContextProvider(props: any) {
     <RoomContext.Provider
       value={{
         roomId,
+        setRoomId,
         createRoom,
         onRoomChange,
         songs,

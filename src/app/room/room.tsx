@@ -6,8 +6,9 @@ declare var window: any;
 
 let listenToPlayDebounce: any;
 
-function Room() {
+function Room(props: any) {
   const {
+    setRoomId,
     songs,
     updateSongProps,
     removeFirstSong,
@@ -17,6 +18,10 @@ function Room() {
   const [currentSong, setCurrentSong] = useState<any>();
   const [songState, setSongState] = useState<number>(-1);
   const [remotePlay, setRemotePlay] = useState<boolean>();
+
+  useEffect(() => {
+    setRoomId(props.match.params.roomId);
+  }, [props.match.params.roomId, setRoomId]);
 
   useEffect(() => {
     if (ytPlayer && [-1, 1, 2].includes(songState)) {

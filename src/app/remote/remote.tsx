@@ -1,13 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { RoomContext } from '../_context/room.context';
 import './remote.scss';
 
 function Remote({ match }: any) {
-  const { songs, playPauseSong, removeFirstSong, roomId } = useContext(
+  const { songs, playPauseSong, removeFirstSong, roomId, setRoomId } = useContext(
     RoomContext
   );
   const [btnDebounce, setBtnDebounce] = useState<boolean>(false);
+
+  useEffect(() => {
+    setRoomId(match.params.roomId);
+  }, [match.params.roomId, setRoomId]);
 
   const onPlayPauseSong = async (play: boolean) => {
     setBtnDebounce(true);

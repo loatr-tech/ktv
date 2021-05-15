@@ -13,9 +13,7 @@ function App() {
     <RoomContextProvider>
       <HashRouter>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route exact path="/" component={Home} />
           <Route path="/room/:roomId" component={Room} />
           <Route path="/remote/:roomId" exact component={Remote} />
           <Route path="/remote/:roomId/search" component={RemoteSearch} />

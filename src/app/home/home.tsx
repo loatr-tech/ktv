@@ -44,7 +44,7 @@ function Home() {
           <input
             type="text"
             className="form-control"
-            value={`http://ktv.loatr.tech/#/remote/${roomId}`}
+            value={`${window.location.origin}/#/remote/${roomId}`}
             onChange={() => {}}
             ref={controlLinkInputRef}
           />
